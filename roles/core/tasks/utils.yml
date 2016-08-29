@@ -1,0 +1,14 @@
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - fortune-mod
+    - fortunes-off
+    - figlet
+    - tar
+    - gzip
+    - bzip2
+    - unrar
+    - p7zip-full
+    - zip
+    - unzip

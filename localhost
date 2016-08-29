@@ -1,0 +1,3 @@
+# Supported desktops: unity, xfce
+# Supported browsers: chrome, chromium, firefox
+localhost ansible_connection=local desktop=unity admin=yes devel=yes extras=yes browser=chrome

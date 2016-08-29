@@ -1,0 +1,10 @@
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - rsync
+    - wget
+    - curl
+    - telnet
+    - openssh-client
+    - lynx

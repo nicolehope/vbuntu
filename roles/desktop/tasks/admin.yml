@@ -1,0 +1,7 @@
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - virt-manager
+    - remmina
+    - icedtea-plugin

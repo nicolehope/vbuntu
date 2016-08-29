@@ -1,0 +1,23 @@
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - gufw
+    - network-manager-gnome
+    - network-manager-pptp-gnome
+    - network-manager-openconnect-gnome
+    - network-manager-openvpn-gnome
+    - network-manager-vpnc-gnome
+# For whatever reason, 16.04 isn't installing this in VMWare
+    - xserver-xorg-input-evdev
+    - konsole
+    - kde-baseapps-bin
+    - fonts-inconsolata
+    - gedit
+    - gnome-calculator
+
+- apt: name=clementine state=present
+- apt: name=gstreamer0.10-fluendo-mp3 state=present
+  when: ansible_distribution_release == 'trusty'
+- apt: name=gstreamer1.0-fluendo-mp3 state=present
+  when: ansible_distribution_release == 'xenial'

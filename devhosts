@@ -1,0 +1,14 @@
+# Supported desktops: unity, xfce
+# Supported browsers: chrome, chromium, firefox
+vbuntu14 desktop=unity admin=yes devel=yes extras=yes browser=firefox
+vbuntu16 desktop=xfce admin=yes devel=yes extras=yes browser=firefox
+
+[ac-clients]
+vbuntu14
+vbuntu16
+
+[ac-clients:vars]
+ac_host=vcacher
+
+[ac-server]
+vcacher ac_host=localhost

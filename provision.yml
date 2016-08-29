@@ -1,0 +1,17 @@
+- hosts: ac-server
+  user: root
+  roles:
+    - ac-server
+    - ac-client
+
+- hosts: ac-clients
+  user: root
+  roles:
+    - ac-client
+
+- hosts: all
+  user: root
+  become: true
+  roles:
+    - core
+    - { role: desktop, when: "desktop is defined and desktop != 'no'" }

@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=Disable Search
+Exec=/bin/bash -c "gsettings set com.canonical.Unity.Lenses remote-content-search 'none'"
+Type=Application

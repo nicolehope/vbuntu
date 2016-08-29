@@ -1,0 +1,11 @@
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - gdisk
+    - parted
+    - kpartx
+    - lvm2
+    - mdadm
+    - cryptsetup
+    - cryptsetup-bin

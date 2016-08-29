@@ -1,0 +1,19 @@
+- block:
+    - apt: name=open-vm-tools state=present
+      when: ansible_virtualization_type == "VMware"
+  when: ansible_virtualization_role == "guest"
+
+- include: "{{ item }}"
+  with_items:
+    - tasks/filesystem.yml
+    - tasks/base.yml
+    - tasks/net.yml
+    - tasks/disk.yml
+    - tasks/utils.yml
+    - tasks/vim.yml
+
+- include: tasks/devel.yml
+  when: devel is defined and devel == 'yes'
+
+- include: tasks/admin.yml
+  when: admin is defined and admin == 'yes'

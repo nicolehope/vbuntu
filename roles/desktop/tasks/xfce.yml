@@ -1,0 +1,39 @@
+#- apt_repository: repo='ppa:xubuntu-dev/xfce-4.12'
+#  when: ansible_distribution_release == 'trusty'
+
+- apt: name=xubuntu-desktop install_recommends=no state=present
+
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - xubuntu-icon-theme
+    - xubuntu-wallpapers
+    - plymouth-theme-xubuntu-text
+    - plymouth-theme-xubuntu-logo
+    - xfce4-terminal
+    - xfwm4-themes
+    - xfce4-notes-plugin
+    - xfce4-power-manager-plugins
+    - xfce4-battery-plugin
+    - xfce4-quicklauncher-plugin
+    - xfce4-verve-plugin
+    - xfce4-whiskermenu-plugin
+    - xfce4-xkb-plugin
+    - xfce4-places-plugin
+    - xfce4-genmon-plugin
+    - xfce4-systemload-plugin
+    - xscreensaver
+    - gnome-system-tools
+#    - xfwm4-themes
+
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - xfce4-mixer
+    - xfce4-volumed
+  when: ansible_distribution_release == 'trusty'
+
+- apt: name=xfce4-pulseaudio-plugin
+  when: ansible_distribution_release == 'xenial'

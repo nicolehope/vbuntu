@@ -1,0 +1,22 @@
+- name: Installing firefox
+  apt: name=firefox state=present
+  when: browser == 'firefox' or browser is undefined
+
+- name: Installing chromium
+  apt: name=chromium-browser state=present
+  when: browser == 'chromium'
+
+- name: Check if Chrome is installed
+  shell: which google-chrome-stable
+  register: chrome_installed
+  ignore_errors: yes
+  when: browser == 'chrome'
+
+- block:
+    - apt: name=gdebi-core state=present
+    - get_url: url=https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+               dest=/tmp/google-chrome-stable_current_amd64.deb
+    - name: Installing chrome
+      command: gdebi --n /tmp/google-chrome-stable_current_amd64.deb
+    - file: path=/tmp/google-chrome-stable_current_amd64.deb state=absent
+  when: browser == 'chrome' and chrome_installed.rc != 0

@@ -1,0 +1,14 @@
+- apt: name=ubuntu-desktop install_recommends=no state=present
+
+- apt: name={{ package }} state=present
+  with_items:
+    - indicator-session
+    - indicator-appmenu
+    - unity-lens-applications
+    - unity-lens-files
+    - gnome-system-tools
+  loop_control:
+    loop_var: package
+
+# Disable web search in unity
+- copy: src=files/disable-search.desktop dest=/etc/xdg/autostart

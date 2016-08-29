@@ -1,0 +1,12 @@
+- apt_repository: repo='ppa:libreoffice/ppa'
+
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - cups
+    - dia
+    - evince
+    - pinta
+    - libreoffice
+    - vlc

@@ -1,0 +1,31 @@
+- block:
+    - apt: name=open-vm-tools-desktop update-cache=yes state=present
+      when: ansible_virtualization_type == "VMware"
+
+    - apt: name=virtualbox-guest-utils update-cache=yes state=present
+      when: ansible_virtualization_type == "virtualbox"
+  when: ansible_virtualization_role == "guest"
+
+- include: tasks/xfce.yml
+  when: desktop == 'xfce'
+- include: tasks/unity.yml
+  when: desktop == 'unity' or desktop == 'yes'
+
+# This will work ok for DHCP
+- lineinfile: dest=/etc/network/interfaces regexp={{ item }} state=absent
+  when: item != 'lo'
+  with_items: "{{ ansible_interfaces }}"
+
+- include: "{{ item }}"
+  with_items:
+    - tasks/base.yml
+    - tasks/browser.yml
+
+- include: tasks/extras.yml
+  when: extras is defined and extras == 'yes'
+
+- include: tasks/devel.yml
+  when: devel is defined and devel == 'yes'
+
+- include: tasks/admin.yml
+  when: admin is defined and admin == 'yes'

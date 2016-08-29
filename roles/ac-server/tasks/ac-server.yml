@@ -1,0 +1,3 @@
+- ufw: rule=allow port=3142
+- apt: name=apt-cacher-ng state=present
+- service: name=apt-cacher-ng state=started enabled=yes

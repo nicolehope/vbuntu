@@ -1,0 +1,12 @@
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - mysql-client
+    - libvirt-bin
+    - bc
+    - sipcalc
+    - xmlstarlet
+
+- apt_repository: repo='ppa:ansible/ansible'
+- apt: name=ansible state=present

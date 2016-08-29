@@ -1,0 +1,47 @@
+- name: Check for btrfs root
+  stat: path=/
+  register: btrfs_root
+  when: mount.mount == '/' and mount.fstype == 'btrfs'
+  with_items: "{{ ansible_mounts }}"
+  loop_control:
+    loop_var: mount
+
+- block:
+    - mount: name=/.btrfs src=UUID={{ mount.uuid }} fstype=btrfs state=mounted
+      when: mount.mount == '/'
+      with_items: "{{ ansible_mounts }}" 
+      loop_control:
+        loop_var: mount
+
+    - name: Check for initial root snapshot
+      stat: path=/.btrfs/@_init
+      register: base_snap
+
+    - name: Create initial root snapshot
+      command: btrfs subvolume snapshot /.btrfs/@ /.btrfs/@_init
+      when: base_snap.stat.isdir is not defined
+
+    - apt: name=apt-btrfs-snapshot update-cache=yes state=present
+    - shell: apt-btrfs-snapshot supported
+      register: snapshot_support
+      ignore_errors: yes
+    # Workaround for bug on 16.04 that's only been fixed in xenial-proposed
+    - file: src=/bin/btrfs dest=/sbin/btrfs state=link
+      when: snapshot_support.rc != 0
+  when: btrfs_root is defined
+
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - e2fsprogs
+    - xfsprogs
+    - xfsdump
+    - btrfs-tools
+    - exfat-utils
+    - ntfs-3g
+    - hfsprogs
+    - sshfs
+    - smbclient
+    - nfs-common
+    - ecryptfs-utils

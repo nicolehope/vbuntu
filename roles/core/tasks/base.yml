@@ -1,0 +1,14 @@
+- apt: name={{ package }} state=present
+  loop_control:
+    loop_var: package
+  with_items:
+    - openssh-server
+    - gdebi-core
+    - python-software-properties
+    - ppa-purge
+
+- ufw: state=enabled
+- ufw: rule=allow port=ssh
+- ufw: policy=deny direction=incoming
+- ufw: policy=allow direction=outgoing
+- ufw: rule=limit port=ssh
