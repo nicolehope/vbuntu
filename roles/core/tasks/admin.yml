@@ -5,6 +5,7 @@
     - mysql-client
     - libvirt-bin
     - bc
+    - pwgen
     - sipcalc
     - xmlstarlet
 
