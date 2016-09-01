@@ -4,6 +4,8 @@
   with_items:
     - build-essential
     - git
+    - tig
+    - git-flow
 #    - subversion
 #    - bzr
 #    - cvs
