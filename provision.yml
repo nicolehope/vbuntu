@@ -1,16 +1,15 @@
 - hosts: ac-server
-  user: root
+  become: true
   roles:
     - ac-server
     - ac-client
 
 - hosts: ac-clients
-  user: root
+  become: true
   roles:
     - ac-client
 
 - hosts: all
-  user: root
   become: true
   roles:
     - core
