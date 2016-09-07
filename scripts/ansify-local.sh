@@ -15,7 +15,7 @@ xenial)
 ;;
 esac
 
-sudo apt-get install openssh-server python-software-properties ppa-purge git
+sudo apt-get install openssh-server python-software-properties software-properties-common ppa-purge git
 sudo add-apt-repository -y ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get install ansible

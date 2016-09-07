@@ -5,6 +5,7 @@
     - openssh-server
     - gdebi-core
     - python-software-properties
+    - software-properties-common
     - ppa-purge
 
 - ufw: state=enabled
