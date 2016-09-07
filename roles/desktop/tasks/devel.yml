@@ -9,4 +9,5 @@
     loop_var: package
   with_items:
     - atom
+    - gitg
 #    - virtualbox-5.1
