@@ -25,7 +25,7 @@
     - xfce4-systemload-plugin
     - xscreensaver
     - gnome-system-tools
-#    - xfwm4-themes
+    - xfwm4-themes
 
 - apt: name={{ package }} state=present
   loop_control:
@@ -35,5 +35,10 @@
     - xfce4-volumed
   when: ansible_distribution_release == 'trusty'
 
-- apt: name=xfce4-pulseaudio-plugin
+- apt: name=xfce4-pulseaudio-plugin state=present
+  when: ansible_distribution_release == 'xenial'
+
+- block:
+    - apt_repository: repo='ppa:nilarimogard/webupd8'
+    - apt: name=gtk3-nocsd state=present
   when: ansible_distribution_release == 'xenial'
