@@ -7,6 +7,8 @@
     - unity-lens-applications
     - unity-lens-files
     - gnome-system-tools
+    - unity-tweak-tool
+    - hud
   loop_control:
     loop_var: package
 
